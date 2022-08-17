@@ -15,6 +15,7 @@
 		F5FD88DE28AC3F5700C01C5C /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FD88DD28AC3F5700C01C5C /* ItemsViewController.swift */; };
 		F5FD88E028AC40E800C01C5C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FD88DF28AC40E800C01C5C /* Item.swift */; };
 		F5FD88E228AC42FE00C01C5C /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FD88E128AC42FE00C01C5C /* ItemStore.swift */; };
+		F5FD88E428AD401200C01C5C /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FD88E328AD401100C01C5C /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		F5FD88DD28AC3F5700C01C5C /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		F5FD88DF28AC40E800C01C5C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		F5FD88E128AC42FE00C01C5C /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
+		F5FD88E328AD401100C01C5C /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				F5FD88C928AC331A00C01C5C /* AppDelegate.swift */,
 				F5FD88CB28AC331A00C01C5C /* SceneDelegate.swift */,
 				F5FD88DD28AC3F5700C01C5C /* ItemsViewController.swift */,
+				F5FD88E328AD401100C01C5C /* ItemCell.swift */,
 				F5FD88CF28AC331A00C01C5C /* Main.storyboard */,
 				F5FD88D228AC331B00C01C5C /* Assets.xcassets */,
 				F5FD88D428AC331B00C01C5C /* LaunchScreen.storyboard */,
@@ -146,6 +149,7 @@
 			files = (
 				F5FD88E028AC40E800C01C5C /* Item.swift in Sources */,
 				F5FD88DE28AC3F5700C01C5C /* ItemsViewController.swift in Sources */,
+				F5FD88E428AD401200C01C5C /* ItemCell.swift in Sources */,
 				F5FD88CA28AC331A00C01C5C /* AppDelegate.swift in Sources */,
 				F5FD88E228AC42FE00C01C5C /* ItemStore.swift in Sources */,
 				F5FD88CC28AC331A00C01C5C /* SceneDelegate.swift in Sources */,
