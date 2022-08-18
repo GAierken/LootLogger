@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-qh-Jjp">
-                                <rect key="frame" x="20" y="96" width="388" height="788"/>
+                                <rect key="frame" x="20" y="96" width="388" height="739"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Abs-Z1-5Nx">
                                         <rect key="frame" x="0.0" y="0.0" width="388" height="34"/>
@@ -146,12 +146,13 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZx-CK-C9b">
-                                        <rect key="frame" x="0.0" y="126" width="388" height="662"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="Fw8-hE-OV8">
+                                        <rect key="frame" x="0.0" y="126" width="388" height="567"/>
+                                    </datePicker>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-cC-Y0u">
+                                        <rect key="frame" x="0.0" y="701" width="388" height="38"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <viewLayoutGuide key="safeArea" id="P5m-GG-TVP"/>
                                 <constraints>
@@ -159,15 +160,22 @@
                                     <constraint firstItem="3ms-vK-Ou5" firstAttribute="leading" secondItem="TVx-1x-aWT" secondAttribute="leading" id="pCf-m4-qOR"/>
                                 </constraints>
                             </stackView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktX-zj-KQJ">
+                                <rect key="frame" x="0.0" y="843" width="428" height="49"/>
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ooR-y9-pTX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="xL5-qh-Jjp" firstAttribute="leading" secondItem="ooR-y9-pTX" secondAttribute="leading" constant="20" id="3rE-Bv-jmN"/>
+                            <constraint firstAttribute="trailing" secondItem="ktX-zj-KQJ" secondAttribute="trailing" id="DWl-CI-TkV"/>
                             <constraint firstItem="xL5-qh-Jjp" firstAttribute="top" secondItem="ooR-y9-pTX" secondAttribute="top" constant="8" id="gxu-jA-LDK"/>
-                            <constraint firstItem="ooR-y9-pTX" firstAttribute="bottom" secondItem="xL5-qh-Jjp" secondAttribute="bottom" constant="8" id="rSH-eY-Oli"/>
+                            <constraint firstItem="ktX-zj-KQJ" firstAttribute="leading" secondItem="6W2-7v-PdE" secondAttribute="leading" id="sfZ-an-Xee"/>
+                            <constraint firstItem="ktX-zj-KQJ" firstAttribute="top" secondItem="xL5-qh-Jjp" secondAttribute="bottom" constant="8" id="uLc-0p-xs2"/>
                             <constraint firstItem="ooR-y9-pTX" firstAttribute="trailing" secondItem="xL5-qh-Jjp" secondAttribute="trailing" constant="20" id="uvd-ta-Nck"/>
+                            <constraint firstItem="ooR-y9-pTX" firstAttribute="bottom" secondItem="ktX-zj-KQJ" secondAttribute="bottom" id="xby-UH-Q0v"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="lnv-FF-NRn" appends="YES" id="aWf-fA-JCd"/>
@@ -177,9 +185,10 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="lqB-Vu-GzD"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="dateLabel" destination="IZx-CK-C9b" id="NjE-pd-qEQ"/>
+                        <outlet property="datePicker" destination="Fw8-hE-OV8" id="DJH-Uu-oke"/>
                         <outlet property="nameField" destination="3ms-vK-Ou5" id="5yg-01-qXs"/>
                         <outlet property="serialField" destination="TVx-1x-aWT" id="HS8-dl-31F"/>
+                        <outlet property="toolBar" destination="ktX-zj-KQJ" id="tRd-ze-1ug"/>
                         <outlet property="valueField" destination="fUE-ib-0CX" id="24Q-MI-YR7"/>
                     </connections>
                 </viewController>

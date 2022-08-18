@@ -54,16 +54,14 @@ class ItemStore {
         allItems.insert(movedItem, at: toIndex)
     }
     
-    @objc func saveChanges() -> Bool {
+    @objc func saveChanges() throws {
         do {
             let encoder = PropertyListEncoder()
             let data = try encoder.encode(allItems)
             try data.write(to: itemArchiveURL, options: [.atomic])
             print("Save all of the items")
-            return true
         } catch let encodingError  {
             print("Error encoding allItems: \(encodingError)")
-            return false
         }
     }
 }

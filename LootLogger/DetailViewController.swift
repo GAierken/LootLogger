@@ -8,11 +8,11 @@
 import UIKit
 
 class DetailViewController: UIViewController, UITextFieldDelegate {
-    @IBOutlet weak var serialField: UITextField!
-    @IBOutlet weak var valueField: UITextField!
-    
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet var serialField: UITextField!
+    @IBOutlet var valueField: UITextField!
+    @IBOutlet var nameField: UITextField!
+    @IBOutlet var datePicker: UIDatePicker!
+    @IBOutlet var toolBar: UIToolbar!
     
     var item: Item! {
         didSet {
@@ -27,20 +27,43 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         formatter.maximumFractionDigits = 2
         return formatter
     }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureDatePicker()
+        configureToolBar()
+    }
     
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }()
+    private func configureDatePicker(){
+        let action = UIAction { [ weak self ]_ in
+            if let self = self {
+                self.item.dateCreated = self.datePicker.date
+            }
+        }
+        datePicker.addAction(action, for: .valueChanged)
+    }
+    
+    private func configureToolBar() {
+        let cameraAction = UIAction(title: "Camera", image: UIImage(systemName: "Camera")) { _ in
+            print("Present camera")
+        }
+        
+        let photoLibraryAction = UIAction(title: "Phote Library", image: UIImage(systemName: "photo.on.rectangle")) { _ in
+            print("Present photo library")
+        }
+        
+        let menu = UIMenu(children: [ cameraAction, photoLibraryAction ])
+        
+        let cameraItem = UIBarButtonItem(systemItem: .camera, menu: menu)
+        toolBar.items = [cameraItem]
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         nameField.text = item.name
         valueField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
         serialField.text = item.serialNumber
-        dateLabel.text = dateFormatter.string(from: item.dateCreated)
+        datePicker.date = item.dateCreated
     }
     
     @IBAction func backgroundTapped(_ sender: UITapGestureRecognizer) {
