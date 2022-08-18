@@ -6,19 +6,23 @@
 //
 
 import UIKit
+import PhotosUI
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PHPickerViewControllerDelegate {
     @IBOutlet var serialField: UITextField!
     @IBOutlet var valueField: UITextField!
     @IBOutlet var nameField: UITextField!
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var toolBar: UIToolbar!
     
+    @IBOutlet var imageView: UIImageView!
     var item: Item! {
         didSet {
             navigationItem.title = item.name
         }
     }
+    
+    var imageStore: ImageStore!
     
     let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -28,6 +32,43 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         return formatter
     }()
 
+    func presentImagePicker() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        dismiss(animated: true, completion: nil)
+        let image = info[.originalImage] as! UIImage
+        imageView.image = image
+    }
+    
+    func presentPhotoPicker()  {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+        let photoPicker = PHPickerViewController(configuration: configuration)
+        photoPicker.delegate = self
+        present(photoPicker, animated: true, completion: nil)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true, completion: nil)
+        
+        if let result = results.first, result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+            result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                if let image = image as? UIImage {
+                    self.imageStore.setImage(image, forKey: self.item.id)
+                    DispatchQueue.main.async {
+                        self.imageView.image = image
+                    }
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDatePicker()
@@ -44,12 +85,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func configureToolBar() {
-        let cameraAction = UIAction(title: "Camera", image: UIImage(systemName: "Camera")) { _ in
-            print("Present camera")
+        let supportsCamera = UIImagePickerController.isSourceTypeAvailable(.camera)
+        let cameraAction = UIAction(title: "Camera", image: UIImage(systemName: "camera"), attributes: supportsCamera ? [] : [.hidden] ) { [ weak self ] _ in
+            self?.presentImagePicker()
         }
         
-        let photoLibraryAction = UIAction(title: "Phote Library", image: UIImage(systemName: "photo.on.rectangle")) { _ in
-            print("Present photo library")
+        let photoLibraryAction = UIAction(title: "Phote Library", image: UIImage(systemName: "photo.on.rectangle")) { [ weak self] _ in
+            self?.presentPhotoPicker()
         }
         
         let menu = UIMenu(children: [ cameraAction, photoLibraryAction ])
@@ -64,6 +106,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         valueField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
         serialField.text = item.serialNumber
         datePicker.date = item.dateCreated
+        let key = item.id
+        let imageToDisplay = imageStore.image(forKey: key)
+        imageView.image = imageToDisplay
     }
     
     @IBAction func backgroundTapped(_ sender: UITapGestureRecognizer) {

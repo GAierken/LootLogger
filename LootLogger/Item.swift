@@ -19,12 +19,14 @@ class Item: Equatable, Codable {
     var valueInDollars: Int
     var serialNumber: String?
     var dateCreated: Date
+    var id: String
     
     init(name: String, valueInDollars: Int, serialNumber: String?) {
         self.name = name
         self.valueInDollars = valueInDollars
         self.serialNumber = serialNumber
         self.dateCreated = Date()
+        self.id = UUID().uuidString
     }
     
     convenience init(random: Bool = false) {
